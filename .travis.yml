@@ -10,10 +10,10 @@ after_success:
   - docker build -t praveenkumarkilari83/multi-server ./server
   - docker build -t praveenkumarkilari83/multi-nginx ./nginx
   - docker build -t praveenkumarkilari83/multi-worker ./worker
-# Docker Login with credential
-echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin 
-# Take those images and push them to dockerhub
-docker push praveenkumarkilari83/multi-client
-docker push praveenkumarkilari83/multi-server
-docker push praveenkumarkilari83/multi-nginx
-docker push praveenkumarkilari83/multi-worker
+  # Docker Login with credential
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin 
+  # Take those images and push them to dockerhub
+  - docker push praveenkumarkilari83/multi-client
+  - docker push praveenkumarkilari83/multi-server
+  - docker push praveenkumarkilari83/multi-nginx
+  - docker push praveenkumarkilari83/multi-worker
