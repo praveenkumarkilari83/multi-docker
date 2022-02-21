@@ -21,6 +21,3 @@ docker push praveenkumarkilari83/multi-client
 docker push praveenkumarkilari83/multi-server
 docker push praveenkumarkilari83/multi-nginx
 docker push praveenkumarkilari83/multi-worker
-
-
-
