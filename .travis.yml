@@ -2,22 +2,29 @@ sudo: required
 services:
   - docker
 before_install:
-  - docker build -t praveenkumarkilari83/react-test -f ./client/Dockerfile.dev ./client
+  - docker build -t sbaiskht/react-test -f ./client/Dockerfile.dev ./client
 script:
-  - docker run -e CI=true praveenkumarkilari83/react-test npm run test
+  - docker run -e CI=true sbaiskht/react-test npm run test
 after_success:
-  - docker build -t praveenkumarkilari83/multi-client ./client
-  - docker build -t praveenkumarkilari83/multi-server ./server
-  - docker build -t praveenkumarkilari83/multi-nginx ./nginx
-  - docker build -t praveenkumarkilari83/multi-worker ./worker
-
-# Docker Login with credential
-
-echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin 
-
-# Take those images and push them to dockerhub
-
-docker push praveenkumarkilari83/multi-client
-docker push praveenkumarkilari83/multi-server
-docker push praveenkumarkilari83/multi-nginx
-docker push praveenkumarkilari83/multi-worker
+  - docker build -t sbaiskht/multi-client ./client
+  - docker build -t sbaiskht/multi-server ./server
+  - docker build -t sbaiskht/multi-nginx ./nginx
+  - docker build -t sbaiskht/multi-worker ./worker
+  # Docker Login with credential
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin 
+  # Take those images and push them to dockerhub
+  - docker push sbaiskht/multi-client
+  - docker push sbaiskht/multi-server
+  - docker push sbaiskht/multi-nginx
+  - docker push sbaiskht/multi-worker
+deploy:
+  provider: elasticbeanstalk
+  region: 'us-east-2'
+  app: 'multi-docker'
+  env: 'MultiDocker-env'
+  bucket_name: 'elasticbeanstalk-us-east-2-583162287212'
+  bucket_path: 'docker-multi'
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY  
