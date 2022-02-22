@@ -17,6 +17,7 @@ after_success:
   - docker push sbaiskht/multi-server
   - docker push sbaiskht/multi-nginx
   - docker push sbaiskht/multi-worker
+<<<<<<< HEAD
 deploy:
   provider: elasticbeanstalk
   region: 'us-east-2'
@@ -28,3 +29,5 @@ deploy:
     branch: master
   access_key_id: $AWS_ACCESS_KEY
   secret_access_key: $AWS_SECRET_KEY  
+=======
+>>>>>>> 89b6e5668d26de97db9607a8136054fb4cea2f1c
